@@ -1,5 +1,6 @@
-const startBtn = document.querySelector('[data-action="start"]');
-let timerId = null;
+const startBtn = document.querySelector('button[data-action="start"]');
+const stopBtn = document.querySelector('button[data-action="stop"]');
+
 const colors = [
   '#FFFFFF',
   '#2196F3',
@@ -8,19 +9,22 @@ const colors = [
   '#009688',
   '#795548',
 ];
-
+let intervalID = null;
 
 const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-const colorsOnScreen = colors[randomIntegerFromInterval(0, colors.length - 1)];
-
-
-
-startBtn.addEventListener('click', startChangeColor);
-
-function startChangeColor() {
-    timerId = 
-    document.body.style.background = randomIntegerFromInterval
+startBtn.addEventListener('click', clickStartBtn);
+function clickStartBtn() {
+  startBtn.disabled = true;
+  intervalID = setInterval(() => {
+    document.body.style.background = colors[randomIntegerFromInterval(0, colors.length - 1)];
+  }, 1000);
 };
+
+stopBtn.addEventListener('click', clickStopBtn);
+function clickStopBtn() {
+  startBtn.disabled = false;
+  clearInterval(intervalID);
+  };
